@@ -88,6 +88,7 @@ This project is developed step by step, each phase building on the previous one.
 
 \[x\] User entity
 
+<<<<<<< HEAD
 \[x\] Register & Login
 
 \[x\] Password hashing (bcrypt)
@@ -95,6 +96,15 @@ This project is developed step by step, each phase building on the previous one.
 \[x\] JWT authentication
 
 \[x\] Role-based authorization (Guest / Admin)
+=======
+\[\] Register & Login
+
+\[\] Password hashing (bcrypt)
+
+\[\] JWT authentication
+
+\[\] Role-based authorization (Guest / Admin)
+>>>>>>> caaff3f9623cd8b56064b64169811fbc8586bd2a
 
 ⏳ Phase 2 – Hotel & Room Management
 
@@ -218,4 +228,8 @@ CI/CD pipeline
 
 📄 License
 
+<<<<<<< HEAD
 MIT License
+=======
+MIT License
+>>>>>>> caaff3f9623cd8b56064b64169811fbc8586bd2a
