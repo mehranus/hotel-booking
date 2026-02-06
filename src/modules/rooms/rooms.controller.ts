@@ -5,7 +5,10 @@ import { RoleGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorators/role.decorator';
 import { Role } from 'src/common/enums/role.enum';
 import { CreateRoomDto } from './dto/rooms.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Rooms')
+@ApiBearerAuth()
 @Controller('hotels/:hotelId/rooms')
 export class RoomsController {
   constructor(
