@@ -1,3 +1,4 @@
+import { RoomType } from "src/common/enums/roomType.enum";
 import { HotelEntity } from "src/modules/hotels/entity/hotel.entity";
 import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -11,6 +12,9 @@ export class RoomsEntity{
 
   @Column()
   capacity:number;
+
+  @Column({type:'enum',enum:RoomType})
+  type:RoomType
 
   @Column()
   pricePerNight:number;
