@@ -11,7 +11,7 @@ export function swagerConfigInit(app:INestApplication):void{
   .addBearerAuth(AuthConfigSwagger(),"Authuriztion")
   .build()
   const swaggerDocument=SwaggerModule.createDocument(app,document)
-  SwaggerModule.setup('/swagger',app,swaggerDocument)
+  SwaggerModule.setup('/api',app,swaggerDocument)
 }
 
 function AuthConfigSwagger():SecuritySchemeObject{
