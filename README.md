@@ -88,7 +88,7 @@ This project is developed step by step, each phase building on the previous one.
 
 \[x\] User entity
 
-<<<<<<< HEAD
+
 \[x\] Register & Login
 
 \[x\] Password hashing (bcrypt)
@@ -97,14 +97,14 @@ This project is developed step by step, each phase building on the previous one.
 
 \[x\] Role-based authorization (Guest / Admin)
 =======
-\[\] Register & Login
+\[x\] Register & Login
 
-\[\] Password hashing (bcrypt)
+\[x\] Password hashing (bcrypt)
 
-\[\] JWT authentication
+\[x\] JWT authentication
 
-\[\] Role-based authorization (Guest / Admin)
->>>>>>> caaff3f9623cd8b56064b64169811fbc8586bd2a
+\[x\] Role-based authorization (Guest / Admin)
+>>>>>>> eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInJvbGUiOiJHVUVTVCIsImlhdCI6MTc3MDM3NDg3NH0.AvAPlJm0yIlrxL4PMfaJFJFGNVPoXTAcRRA4yzTrRFg
 
 ⏳ Phase 2 – Hotel & Room Management
 
