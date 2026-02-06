@@ -1,18 +1,21 @@
 import { Role } from "src/common/enums/role.enum";
-import { Column, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
+@Entity('UserEntity')
 export class UserEntity{
   @PrimaryGeneratedColumn('increment')
-  id:number;
+  id?:number;
 
   @Column({unique:true})
-  email:string
+  email:string;
 
   @Column()
-  password:string
+  password:string;
 
   @Column({type: 'enum' , enum:Role,default:Role.GUEST})
-  role:Role
+  role?:Role;
 
+  @CreateDateColumn()
+  createdAt?:Date;
   
 }
