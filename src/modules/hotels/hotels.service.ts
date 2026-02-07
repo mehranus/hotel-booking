@@ -11,6 +11,7 @@ export class HotelsService {
   ){}
 
   create(data:Partial<HotelEntity>){
+    console.log(data)
     return this.hotelRepository.save(data)
   }
  

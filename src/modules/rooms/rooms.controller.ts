@@ -6,9 +6,10 @@ import { Roles } from 'src/common/decorators/role.decorator';
 import { Role } from 'src/common/enums/role.enum';
 import { CreateRoomDto } from './dto/rooms.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AuthDecorator } from 'src/common/decorators/auth.decorator';
 
 @ApiTags('Rooms')
-@ApiBearerAuth()
+
 @Controller('hotels/:hotelId/rooms')
 export class RoomsController {
   constructor(
@@ -21,6 +22,7 @@ export class RoomsController {
   }
 
   @Post()
+  @ApiBearerAuth('Authuriztion')
   @UseGuards(JwtAuthGuard,RoleGuard)
   @Roles(Role.ADMIN)
   create(@Param('hotelId') hotelId:number,@Body() roomsDto:CreateRoomDto ){

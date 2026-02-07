@@ -9,7 +9,7 @@ export class CreateHotelDto{
 
   @ApiProperty()
   @IsString()
-  address:string
+  addrass:string
 
   @ApiProperty({required:false})
   @IsString()
