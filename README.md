@@ -108,13 +108,13 @@ This project is developed step by step, each phase building on the previous one.
 
 ⏳ Phase 2 – Hotel & Room Management
 
-\[ \] Hotel CRUD (Admin only)
+\[x\] Hotel CRUD (Admin only)
 
-\[ \] Room CRUD (Admin only)
+\[x\] Room CRUD (Admin only)
 
-\[ \] Room types & pricing
+\[x\] Room types & pricing
 
-\[ \] Validation & access control
+\[x\] Validation & access control
 
 ⏳ Phase 3 – Booking System
 
