@@ -21,4 +21,24 @@ export class RoomsService {
     findByHotel(hotelId:number){
       return this.roomsRepository.find({where:{id:hotelId},relations:['hotel']})
     }
+
+
+    async findAvalilable(checkIn:string,checkOut:string){
+      return this.roomsRepository.createQueryBuilder('room')
+      .leftJoin(
+        'room.bookings',
+        'booking',
+        `booking.status =:status
+        AND NOT(
+        booking.checkOut <= :checkIn
+        OR booking.checkIn >= :checkOut)`,
+        {
+          status:'CONFIRMED',
+          checkIn,
+          checkOut
+        }
+      )
+      .where('booking.id IS NULL')
+      .getMany();
+    }
 }

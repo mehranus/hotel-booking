@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { RoomsService } from './rooms.service';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RoleGuard } from 'src/common/guards/roles.guard';
@@ -28,4 +28,12 @@ export class RoomsController {
   create(@Param('hotelId') hotelId:number,@Body() roomsDto:CreateRoomDto ){
     return this.roomsService.create(hotelId,roomsDto)
   }
+
+
+  @Get('available')
+  findAvailable(
+    @Query('checkIn') checkIn:string,
+    @Query('checkOut') checkOut:string  ){
+      return this.roomsService.findAvalilable(checkIn,checkOut)
+    }
 }

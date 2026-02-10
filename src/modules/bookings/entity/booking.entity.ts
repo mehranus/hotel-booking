@@ -12,7 +12,7 @@ export class BookingEntity{
   @ManyToOne(()=>UserEntity)
   user:UserEntity
 
-  @ManyToOne(()=>RoomsEntity)
+  @ManyToOne(()=>RoomsEntity,room=>room.bookings)
   room:RoomsEntity
 
   @Column({type:'date'})
