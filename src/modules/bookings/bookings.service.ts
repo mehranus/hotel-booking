@@ -26,7 +26,7 @@ export class BookingsService {
     const overlap= await this.bookingRepository.createQueryBuilder('booking')
     .where('booking.roomId= :roomId',{roomId:dto.roomId})
     .andWhere('booking.status= :status',{status:'CONFIRMED'})
-    .andWhere('NOT(booking.checkOut <= :checkIn OR booking.checkIn >= :checkOut',{checkIn:dto.checkIn,checkOut:dto.checkOut})
+    .andWhere('NOT(booking.checkOut <= :checkIn OR booking.checkIn >= :checkOut)',{checkIn:dto.checkIn,checkOut:dto.checkOut})
     .getOne();
 
     if(overlap){
