@@ -1,7 +1,7 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BookingEntity } from './entity/booking.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { RoomsEntity } from '../rooms/entity/rooms.entity';
 import { CreateBookingDto } from './dto/booking.dto';
 import { BookingType } from 'src/common/enums/booking.enum';
@@ -10,36 +10,41 @@ import { BookingType } from 'src/common/enums/booking.enum';
 export class BookingsService {
   constructor(
     @InjectRepository(BookingEntity) private readonly bookingRepository:Repository<BookingEntity>,
-    @InjectRepository(RoomsEntity) private readonly roomRepository:Repository<RoomsEntity>
+    @InjectRepository(RoomsEntity) private readonly roomRepository:Repository<RoomsEntity>,
+    private dataSourec:DataSource
 ){}
 
   async create(userId:number,dto:CreateBookingDto){
-    if(dto.checkIn >= dto.checkOut){
-      throw new BadRequestException('Invalid date reing')
-    }
-    const room=await this.roomRepository.findOne({where:{id:dto.roomId}})
+   return this.dataSourec.transaction(
+      'SERIALIZABLE',
+      async (manger)=>{
+        if(dto.checkIn >= dto.checkOut){
+        throw new BadRequestException('Invalid date reing')
+      }
+        const overlap= await manger.createQueryBuilder(BookingEntity,'booking')
+        .where('booking.roomId= :roomId',{roomId:dto.roomId})
+        .andWhere('booking.status= :status',{status:'CONFIRMED'})
+        .andWhere('NOT(booking.checkOut <= :checkIn OR booking.checkIn >= :checkOut)',{checkIn:dto.checkIn,checkOut:dto.checkOut})
+        .getOne();
 
-    if(!room){
-      throw new BadRequestException('room not find')
-    }
+        if(overlap){
+        throw new ConflictException('Room is not available')
+        }
 
-    const overlap= await this.bookingRepository.createQueryBuilder('booking')
-    .where('booking.roomId= :roomId',{roomId:dto.roomId})
-    .andWhere('booking.status= :status',{status:'CONFIRMED'})
-    .andWhere('NOT(booking.checkOut <= :checkIn OR booking.checkIn >= :checkOut)',{checkIn:dto.checkIn,checkOut:dto.checkOut})
-    .getOne();
+        const booking= manger.create(BookingEntity,{
+          user:{id:userId},
+          room:{id:dto.roomId},
+          checkIn:dto.checkIn,
+          checkOut:dto.checkOut,
+        });
 
-    if(overlap){
-      throw new ConflictException('Room is not available')
-    }
+        return manger.save(booking)
+          }
+    )
+  
+  
 
-    const booking= this.bookingRepository.create({
-      user:{id:userId},
-      room,
-      checkIn:dto.checkIn,
-      checkOut:dto.checkOut
-    })
-    return this.bookingRepository.save(booking)
+  
 
 
   }
