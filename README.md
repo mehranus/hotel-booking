@@ -104,7 +104,7 @@ This project is developed step by step, each phase building on the previous one.
 \[x\] JWT authentication
 
 \[x\] Role-based authorization (Guest / Admin)
->>>>>>> eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInJvbGUiOiJHVUVTVCIsImlhdCI6MTc3MDM3NDg3NH0.AvAPlJm0yIlrxL4PMfaJFJFGNVPoXTAcRRA4yzTrRFg
+
 
 ⏳ Phase 2 – Hotel & Room Management
 
@@ -118,23 +118,23 @@ This project is developed step by step, each phase building on the previous one.
 
 ⏳ Phase 3 – Booking System
 
-\[ \] Search available rooms by date
+\[x\] Search available rooms by date
 
-\[ \] Booking creation
+\[x\] Booking creation
 
-\[ \] Prevent overlapping bookings
+\[x\] Prevent overlapping bookings
 
-\[ \] Database transactions
+\[x\] Database transactions
 
-\[ \] Booking cancellation
+\[x\] Booking cancellation
 
 ⏳ Phase 4 – Redis Integration
 
-\[ \] Distributed locking for bookings
+\[x\] Distributed locking for bookings
 
-\[ \] Cache room availability
+\[x\] Cache room availability
 
-\[ \] Cache frequently accessed data
+\[x\] Cache frequently accessed data
 
 ⏳ Phase 5 – RabbitMQ (Event-Driven)
 
