@@ -6,6 +6,7 @@ import { RoomsEntity } from '../rooms/entity/rooms.entity';
 import { CreateBookingDto } from './dto/booking.dto';
 import { BookingType } from 'src/common/enums/booking.enum';
 import Redis from 'ioredis';
+import { RabbitMQService } from 'src/common/rabbitmq/rabbitmq.service';
 
 @Injectable()
 export class BookingsService {
@@ -13,7 +14,8 @@ export class BookingsService {
     @InjectRepository(BookingEntity) private readonly bookingRepository:Repository<BookingEntity>,
     @InjectRepository(RoomsEntity) private readonly roomRepository:Repository<RoomsEntity>,
     private dataSourec:DataSource,
-    @Inject('REDIS_CLIENT') private redis:Redis
+    @Inject('REDIS_CLIENT') private redis:Redis,
+    private rabbitMQService:RabbitMQService
 ){}
 
 
@@ -59,10 +61,23 @@ async releseLock(key:string){
           checkIn:dto.checkIn,
           checkOut:dto.checkOut,
         });
+        
 
-        return manger.save(booking)
-          }
+        const saveBooking=await manger.save(booking)
+
+       
+
+        await this.rabbitMQService.publish('booking.created',{
+          bookingId:saveBooking.id,
+          userId,
+          rppmId:dto.roomId,
+          checkIn:dto.checkIn,
+          checkOut:dto.checkOut,
           
+          })
+        return saveBooking
+      }
+        
     )} finally{
       await this.releseLock(lockKey)
     }
