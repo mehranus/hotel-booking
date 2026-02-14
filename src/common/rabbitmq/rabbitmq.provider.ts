@@ -6,7 +6,7 @@ import * as amqp from 'amqplib';
 export const RabitMQProvider:Provider={
   provide:'RABBITMQ_CONNECTION',
   useFactory:async()=>{
-    const connection= await amqp.connect('amqp://localhost:5672');
+    const connection= await amqp.connect(process.env.RABBITMQ_URL);
     return connection;
   }
 

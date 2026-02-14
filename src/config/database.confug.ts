@@ -2,12 +2,13 @@ import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 
 
 export const databaseConfig : TypeOrmModuleOptions={
+  
   type:'postgres',
-  host:'localhost',
-  port:5432,
-  username:'postgres',
-  password:'root',
-  database:'hotel-booking',
+  host:process.env.DB_HOST,
+  port:parseInt(process.env.DB_PORT || "5432", 10),
+  username:process.env.DB_USER,
+  password:process.env.DB_PASS,
+  database:process.env.DB_NAME,
   autoLoadEntities:true,
   synchronize:true // just for dev
 }

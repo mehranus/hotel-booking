@@ -8,9 +8,16 @@ import { RoomsModule } from './rooms/rooms.module';
 import { BookingsModule } from './bookings/bookings.module';
 import { BookingConsumer } from 'src/consumers/booking.consumer';
 import { RabbitmqModule } from 'src/common/rabbitmq/rabbitmq.module';
+import { ConfigModule } from '@nestjs/config';
+import configrition from 'src/config/configrition';
+import { join } from 'path';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(databaseConfig), UsersModule, AuthModule, HotelsModule, RoomsModule, BookingsModule,RabbitmqModule],
+  imports: [
+    TypeOrmModule.forRoot(databaseConfig),
+    ConfigModule.forRoot({isGlobal:true, load:[configrition]}),
+    
+     UsersModule, AuthModule, HotelsModule, RoomsModule, BookingsModule,RabbitmqModule],
   controllers: [],
   providers: [BookingConsumer],
 })
