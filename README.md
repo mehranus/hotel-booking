@@ -138,11 +138,11 @@ This project is developed step by step, each phase building on the previous one.
 
 ⏳ Phase 5 – RabbitMQ (Event-Driven)
 
-\[ \] BookingCreated event
+\[x\] BookingCreated event
 
-\[ \] BookingCancelled event
+\[x\] BookingCancelled event
 
-\[ \] Async consumers (email, logs, analytics)
+\[x\] Async consumers (email, logs, analytics)
 
 ⏳ Phase 6 – Optimization & Production Readiness
 
