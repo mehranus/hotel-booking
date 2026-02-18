@@ -2,8 +2,9 @@
 import { BookingType } from "src/common/enums/booking.enum";
 import { RoomsEntity } from "src/modules/rooms/entity/rooms.entity";
 import { UserEntity } from "src/modules/users/entity/user.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
+@Index(['room','checkIn','checkOut'])
 @Entity('BookingEntity')
 export class BookingEntity{
   @PrimaryGeneratedColumn('increment')
