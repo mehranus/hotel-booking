@@ -3,7 +3,8 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './modules/app.module';
 import { swagerConfigInit } from './config/swagger.config';
-import dontenv from 'dotenv'
+import helmet from 'helmet';
+
 
 
 
@@ -13,6 +14,7 @@ async function bootstrap() {
  
   
   const app = await NestFactory.create(AppModule);
+  app.use(helmet())
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist:true,
