@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './modules/app.module';
 import { swagerConfigInit } from './config/swagger.config';
 import helmet from 'helmet';
+import compression from 'compression'
 
 
 
@@ -25,6 +26,7 @@ async function bootstrap() {
   app.enableCors({
   origin:['http://localhost:3000'],
   credentials:true})
+  app.use(compression())
   swagerConfigInit(app)
   await app.listen(process.env.PORT ?? '3000' ,()=>{
     console.log('Run Port!');

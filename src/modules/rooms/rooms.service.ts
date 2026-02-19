@@ -1,14 +1,16 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { HotelEntity } from '../hotels/entity/hotel.entity';
 import { Repository } from 'typeorm';
 import { RoomsEntity } from './entity/rooms.entity';
+import Redis from 'ioredis';
 
 @Injectable()
 export class RoomsService {
    constructor(
       @InjectRepository(HotelEntity) private readonly hotelRepository:Repository<HotelEntity>,
-      @InjectRepository(RoomsEntity) private readonly roomsRepository:Repository<RoomsEntity>
+      @InjectRepository(RoomsEntity) private readonly roomsRepository:Repository<RoomsEntity>,
+      @Inject('REDIS_CLIENT') private readonly redis:Redis
     ){}
 
     async create(hotelId:number,data:Partial<RoomsEntity>){
@@ -24,7 +26,13 @@ export class RoomsService {
 
 
     async findAvalilable(checkIn:string,checkOut:string){
-      return this.roomsRepository.createQueryBuilder('room')
+      const cashKey= `avalilable:${checkIn}:${checkOut}`
+      const cached=await this.redis.get(cashKey)
+      if(cached){
+        return JSON.parse(cached)
+      }
+
+      const room=await this.roomsRepository.createQueryBuilder('room')
       .leftJoin(
         'room.bookings',
         'booking',
@@ -40,5 +48,7 @@ export class RoomsService {
       )
       .where('booking.id IS NULL')
       .getMany();
+      await this.redis.set(cashKey,JSON.stringify(room),'EX',30)
+      return room;
     }
 }
