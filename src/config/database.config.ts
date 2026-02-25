@@ -13,7 +13,7 @@ export function databaseConfig():TypeOrmModuleOptions{
     username:DB_USER,
     password:DB_PASS,
     database:DB_NAME,
-    autoLoadEntities:false,
+    autoLoadEntities:true,
     synchronize:false,
     entities: [
       "dist/**/**/**/*.entity{.ts,.js}",

@@ -11,6 +11,7 @@ import { RoomsModule } from './rooms/rooms.module';
 import { BookingsModule } from './bookings/bookings.module';
 import { RabbitmqModule } from 'src/common/rabbitmq/rabbitmq.module';
 import { databaseConfig } from 'src/config/database.config';
+import { BookingEntity } from './bookings/entity/booking.entity';
 
 @Module({
   imports: [

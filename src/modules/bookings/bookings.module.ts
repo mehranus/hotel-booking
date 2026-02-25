@@ -11,6 +11,7 @@ import { BookingConsumer } from 'src/consumers/booking.consumer';
 @Module({
   imports:[TypeOrmModule.forFeature([BookingEntity,RoomsEntity]),RedisModule,RabbitmqModule],
   providers: [BookingsService,BookingConsumer],
-  controllers: [BookingsController]
+  controllers: [BookingsController],
+
 })
 export class BookingsModule {}
